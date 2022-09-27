@@ -1,0 +1,13 @@
+{
+    "name": "flux-mongodb-api",
+    "productName": "flux-mongodb-api",
+    "version": "2022-09-27-1",
+    "description": "",
+    "keywords": [],
+    "homepage": "",
+    "peerDependencies": {
+        "flux-shutdown-handler-api": "*",
+        "mongodb": "*"
+    },
+    "private": true
+}
