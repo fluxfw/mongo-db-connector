@@ -1,8 +1,8 @@
 import { MONGO_DB_DEFAULT_PORT } from "../../../Adapter/MongoDb/MONGO_DB.mjs";
 import mongodb from "mongodb";
-import { ShutdownHandler } from "../../../../../flux-shutdown-handler-api/src/Adapter/ShutdownHandler/ShutdownHandler.mjs";
 
 /** @typedef {import("../../../Adapter/MongoDb/MongoDb.mjs").MongoDb} MongoDb */
+/** @typedef {import("../../../../../flux-shutdown-handler-api/src/Adapter/ShutdownHandler/ShutdownHandler.mjs").ShutdownHandler} ShutdownHandler */
 
 export class GetMongoDbCommand {
     /**
