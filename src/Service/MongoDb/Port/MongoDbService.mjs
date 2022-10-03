@@ -1,8 +1,8 @@
 import { GetMongoDbCommand } from "../Command/GetMongoDbCommand.mjs";
-import mongodb from "mongodb";
-import { ShutdownHandler } from "../../../../../flux-shutdown-handler-api/src/Adapter/ShutdownHandler/ShutdownHandler.mjs";
 
 /** @typedef {import("../../../Adapter/MongoDb/MongoDb.mjs").MongoDb} MongoDb */
+/** @typedef {import("mongodb")} mongodb */
+/** @typedef {import("../../../../../flux-shutdown-handler-api/src/Adapter/ShutdownHandler/ShutdownHandler.mjs").ShutdownHandler} ShutdownHandler */
 
 export class MongoDbService {
     /**
