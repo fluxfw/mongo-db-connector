@@ -1,7 +1,6 @@
-import { MongoDbService } from "../../Service/MongoDb/Port/MongoDbService.mjs";
-
 /** @typedef {import("../MongoDb/MongoDb.mjs").MongoDb} MongoDb */
 /** @typedef {import("mongodb")} mongodb */
+/** @typedef {import("../../Service/MongoDb/Port/MongoDbService.mjs").MongoDbService} MongoDbService */
 /** @typedef {import("../../../../flux-shutdown-handler-api/src/Adapter/ShutdownHandler/ShutdownHandler.mjs").ShutdownHandler} ShutdownHandler */
 
 export class MongoDbApi {
@@ -36,7 +35,7 @@ export class MongoDbApi {
      * @returns {Promise<void>}
      */
     async init() {
-        this.#mongo_db_service ??= this.#getMongoDbService();
+        this.#mongo_db_service ??= await this.#getMongoDbService();
     }
 
     /**
@@ -50,10 +49,10 @@ export class MongoDbApi {
     }
 
     /**
-     * @returns {MongoDbService}
+     * @returns {Promise<MongoDbService>}
      */
-    #getMongoDbService() {
-        return MongoDbService.new(
+    async #getMongoDbService() {
+        return (await import("../../Service/MongoDb/Port/MongoDbService.mjs")).MongoDbService.new(
             this.#shutdown_handler
         );
     }
