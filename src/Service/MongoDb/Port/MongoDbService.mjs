@@ -1,5 +1,3 @@
-import { GetMongoDbCommand } from "../Command/GetMongoDbCommand.mjs";
-
 /** @typedef {import("../../../Adapter/MongoDb/MongoDb.mjs").MongoDb} MongoDb */
 /** @typedef {import("mongodb")} mongodb */
 /** @typedef {import("../../../../../flux-shutdown-handler-api/src/Adapter/ShutdownHandler/ShutdownHandler.mjs").ShutdownHandler} ShutdownHandler */
@@ -33,7 +31,7 @@ export class MongoDbService {
      * @returns {Promise<mongodb.Db>}
      */
     async getMongoDb(mongo_db) {
-        return GetMongoDbCommand.new(
+        return (await import("../Command/GetMongoDbCommand.mjs")).GetMongoDbCommand.new(
             this.#shutdown_handler
         )
             .getMongoDb(
