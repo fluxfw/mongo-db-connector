@@ -35,7 +35,7 @@ export class MongoDbApi {
      * @returns {Promise<void>}
      */
     async init() {
-        this.#mongo_db_service ??= await this.#getMongoDbService();
+
     }
 
     /**
@@ -43,7 +43,7 @@ export class MongoDbApi {
      * @returns {Promise<mongodb.Db>}
      */
     async getMongoDb(mongo_db) {
-        return this.#mongo_db_service.getMongoDb(
+        return (await this.#getMongoDbService()).getMongoDb(
             mongo_db
         );
     }
@@ -52,8 +52,10 @@ export class MongoDbApi {
      * @returns {Promise<MongoDbService>}
      */
     async #getMongoDbService() {
-        return (await import("../../Service/MongoDb/Port/MongoDbService.mjs")).MongoDbService.new(
+        this.#mongo_db_service ??= (await import("../../Service/MongoDb/Port/MongoDbService.mjs")).MongoDbService.new(
             this.#shutdown_handler
         );
+
+        return this.#mongo_db_service;
     }
 }
