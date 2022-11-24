@@ -32,13 +32,6 @@ export class MongoDbApi {
     }
 
     /**
-     * @returns {Promise<void>}
-     */
-    async init() {
-
-    }
-
-    /**
      * @param {MongoDb} mongo_db
      * @returns {Promise<mongodb.Db>}
      */
