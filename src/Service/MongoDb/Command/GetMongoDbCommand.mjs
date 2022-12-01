@@ -33,9 +33,11 @@ export class GetMongoDbCommand {
      * @returns {Promise<mongodb.Db>}
      */
     async getMongoDb(mongo_db) {
+        const password = mongo_db.password ?? null;
         const port = mongo_db.port ?? MONGO_DB_DEFAULT_PORT;
+        const user = mongo_db.user ?? null;
 
-        const client = await new mongodb.MongoClient(`mongodb://${mongo_db.user !== null ? `${mongo_db.user}${mongo_db.password !== null ? `:${mongo_db.password}` : ""}@` : ""}${mongo_db.host}${port !== MONGO_DB_DEFAULT_PORT ? `:${port}` : ""}/${mongo_db.database}`).connect();
+        const client = await new mongodb.MongoClient(`mongodb://${user !== null ? `${user}${password !== null ? `:${password}` : ""}@` : ""}${mongo_db.host}${port !== MONGO_DB_DEFAULT_PORT ? `:${port}` : ""}/${mongo_db.database}`).connect();
 
         this.#shutdown_handler.addShutdownTask(async () => {
             await client.close();
