@@ -1,3 +1,3 @@
 /**
- * @typedef {{host: string, port?: number, user?: string, password?: string, database: string}} MongoDb
+ * @typedef {{host?: string, port?: number, user?: string, password?: string, database: string}} MongoDb
  */
