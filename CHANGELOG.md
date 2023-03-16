@@ -6,6 +6,14 @@ Changes:
 
 \-
 
+## v2023-03-16-1
+
+Changes:
+
+- Simplify
+- Default host `mongo-db`
+- Renamed to `flux-mongo-db-connector`
+
 ## v2023-02-09-1
 
 Changes:

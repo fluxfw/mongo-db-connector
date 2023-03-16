@@ -1,1 +1,3 @@
-# flux-mongodb-api
+# flux-mongo-db-connector
+
+MongoDb connector
