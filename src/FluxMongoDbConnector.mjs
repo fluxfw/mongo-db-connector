@@ -1,6 +1,7 @@
 import mongodb from "mongodb";
 import { FLUX_MONGO_DB_CONNECTOR_DEFAULT_HOST, FLUX_MONGO_DB_CONNECTOR_DEFAULT_PORT } from "./FLUX_MONGO_DB_CONNECTOR.mjs";
 
+/** @typedef {import("mongodb").Db} Db */
 /** @typedef {import("../../flux-shutdown-handler/src/FluxShutdownHandler.mjs").FluxShutdownHandler} FluxShutdownHandler */
 
 export class FluxMongoDbConnector {
@@ -33,7 +34,7 @@ export class FluxMongoDbConnector {
      * @param {string | null} password
      * @param {string | null} host
      * @param {number | null} port
-     * @returns {Promise<mongodb.Db>}
+     * @returns {Promise<Db>}
      */
     async getMongoDb(database, user = null, password = null, host = null, port = null) {
         const _port = port ?? FLUX_MONGO_DB_CONNECTOR_DEFAULT_PORT;
