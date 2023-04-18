@@ -30,16 +30,16 @@ export class FluxMongoDbConnector {
 
     /**
      * @param {string} database
-     * @param {string | null} user
-     * @param {string | null} password
+     * @param {string} user
+     * @param {string} password
      * @param {string | null} host
      * @param {number | null} port
      * @returns {Promise<Db>}
      */
-    async getMongoDb(database, user = null, password = null, host = null, port = null) {
+    async getMongoDb(database, user, password, host = null, port = null) {
         const _port = port ?? FLUX_MONGO_DB_CONNECTOR_DEFAULT_PORT;
 
-        const client = await new mongodb.MongoClient(`mongodb://${user !== null ? `${user}${password !== null ? `:${password}` : ""}@` : ""}${host ?? FLUX_MONGO_DB_CONNECTOR_DEFAULT_HOST}${_port !== FLUX_MONGO_DB_CONNECTOR_DEFAULT_PORT ? `:${_port}` : ""}/${database}`).connect();
+        const client = await new mongodb.MongoClient(`mongodb://${user}:${password}@${host ?? FLUX_MONGO_DB_CONNECTOR_DEFAULT_HOST}${_port !== FLUX_MONGO_DB_CONNECTOR_DEFAULT_PORT ? `:${_port}` : ""}/${database}`).connect();
 
         await this.#flux_shutdown_handler.addTask(async () => {
             await client.close();
