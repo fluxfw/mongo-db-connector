@@ -41,7 +41,7 @@ export class FluxMongoDbConnector {
 
         const client = await new mongodb.MongoClient(`mongodb://${host ?? FLUX_MONGO_DB_CONNECTOR_DEFAULT_HOST}${_port !== null ? `:${_port}` : ""}/${database}`, {
             auth: {
-                user,
+                username: user,
                 password
             }
         }).connect();
