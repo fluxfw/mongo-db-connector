@@ -28,7 +28,7 @@ secrets:
 
 #### Connect to mongosh
 
-```sh
+```shell
 docker compose exec mongo-db mongosh -u root
 ```
 
