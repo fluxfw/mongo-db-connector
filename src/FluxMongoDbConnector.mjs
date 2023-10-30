@@ -2,30 +2,30 @@ import mongodb from "mongodb";
 import { FLUX_MONGO_DB_CONNECTOR_DEFAULT_HOST, FLUX_MONGO_DB_CONNECTOR_DEFAULT_PORT } from "./FLUX_MONGO_DB_CONNECTOR.mjs";
 
 /** @typedef {import("mongodb").Db} Db */
-/** @typedef {import("../../flux-shutdown-handler/src/FluxShutdownHandler.mjs").FluxShutdownHandler} FluxShutdownHandler */
+/** @typedef {import("./ShutdownHandler/ShutdownHandler.mjs").ShutdownHandler} ShutdownHandler */
 
 export class FluxMongoDbConnector {
     /**
-     * @type {FluxShutdownHandler}
+     * @type {ShutdownHandler | null}
      */
-    #flux_shutdown_handler;
+    #shutdown_handler;
 
     /**
-     * @param {FluxShutdownHandler} flux_shutdown_handler
+     * @param {ShutdownHandler | null} shutdown_handler
      * @returns {FluxMongoDbConnector}
      */
-    static new(flux_shutdown_handler) {
+    static new(shutdown_handler = null) {
         return new this(
-            flux_shutdown_handler
+            shutdown_handler
         );
     }
 
     /**
-     * @param {FluxShutdownHandler} flux_shutdown_handler
+     * @param {ShutdownHandler | null} shutdown_handler
      * @private
      */
-    constructor(flux_shutdown_handler) {
-        this.#flux_shutdown_handler = flux_shutdown_handler;
+    constructor(shutdown_handler) {
+        this.#shutdown_handler = shutdown_handler;
     }
 
     /**
@@ -46,9 +46,29 @@ export class FluxMongoDbConnector {
             }
         }).connect();
 
-        await this.#flux_shutdown_handler.addTask(async () => {
+        /**
+         * @returns {Promise<void>}
+         */
+        const close_client = async () => {
             await client.close();
-        });
+        };
+
+        if (this.#shutdown_handler !== null) {
+            await this.#shutdown_handler.addTask(
+                async () => {
+                    await close_client();
+                }
+            );
+        } else {
+            for (const name of [
+                "SIGINT",
+                "SIGTERM"
+            ]) {
+                process.on(name, async () => {
+                    await close_client();
+                });
+            }
+        }
 
         return client.db(database);
     }

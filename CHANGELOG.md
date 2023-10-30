@@ -6,6 +6,12 @@ Changes:
 
 \-
 
+## v2023-10-30-1
+
+Changes:
+
+- General and optional shutdown handler
+
 ## v2023-04-20-2
 
 Changes:
