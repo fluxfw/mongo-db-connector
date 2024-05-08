@@ -1,3 +1,0 @@
-export const FLUX_MONGO_DB_CONNECTOR_DEFAULT_HOST = "mongo-db";
-
-export const FLUX_MONGO_DB_CONNECTOR_DEFAULT_PORT = 27_017;

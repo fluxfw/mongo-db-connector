@@ -1,6 +1,4 @@
-# flux-mongo-db-connector
-
-MongoDb connector
+# mongo-db-connector
 
 ## Set up
 

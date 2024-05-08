@@ -1,10 +1,10 @@
 import mongodb from "mongodb";
-import { FLUX_MONGO_DB_CONNECTOR_DEFAULT_HOST, FLUX_MONGO_DB_CONNECTOR_DEFAULT_PORT } from "./FLUX_MONGO_DB_CONNECTOR.mjs";
+import { MONGO_DB_CONNECTOR_DEFAULT_HOST, MONGO_DB_CONNECTOR_DEFAULT_PORT } from "./MONGO_DB_CONNECTOR.mjs";
 
 /** @typedef {import("mongodb").Db} Db */
 /** @typedef {import("./ShutdownHandler/ShutdownHandler.mjs").ShutdownHandler} ShutdownHandler */
 
-export class FluxMongoDbConnector {
+export class MongoDbConnector {
     /**
      * @type {ShutdownHandler | null}
      */
@@ -12,7 +12,7 @@ export class FluxMongoDbConnector {
 
     /**
      * @param {ShutdownHandler | null} shutdown_handler
-     * @returns {Promise<FluxMongoDbConnector>}
+     * @returns {Promise<MongoDbConnector>}
      */
     static async new(shutdown_handler = null) {
         return new this(
@@ -37,9 +37,9 @@ export class FluxMongoDbConnector {
      * @returns {Promise<Db>}
      */
     async getMongoDb(database, user, password, host = null, port = null) {
-        const _port = port !== FLUX_MONGO_DB_CONNECTOR_DEFAULT_PORT ? port : null;
+        const _port = port !== MONGO_DB_CONNECTOR_DEFAULT_PORT ? port : null;
 
-        const client = await new mongodb.MongoClient(`mongodb://${host ?? FLUX_MONGO_DB_CONNECTOR_DEFAULT_HOST}${_port !== null ? `:${_port}` : ""}/${database}`, {
+        const client = await new mongodb.MongoClient(`mongodb://${host ?? MONGO_DB_CONNECTOR_DEFAULT_HOST}${_port !== null ? `:${_port}` : ""}/${database}`, {
             auth: {
                 username: user,
                 password
